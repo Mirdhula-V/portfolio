@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mirdhula V — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Epilogue:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ══════════════════════════════════════
+   TOKENS
+══════════════════════════════════════ */
+[data-theme="light"]{
+  --bg:       #F7F5F0;
+  --bg2:      #EFECE4;
+  --bg3:      #E5E0D4;
+  --surface:  #FFFFFF;
+  --border:   #DDD8CC;
+  --border2:  #C8C2B4;
+  --text:     #1A1814;
+  --text2:    #3D3A34;
+  --text3:    #7A766C;
+  --ink:      #1A1814;
+  --accent:   #C0392B;
+  --accent2:  #1A5276;
+  --accentbg: rgba(192,57,43,0.06);
+  --accentbg2:rgba(26,82,118,0.06);
+  --navbg:    rgba(247,245,240,0.92);
+  --sh1:      0 2px 8px rgba(26,24,20,0.07);
+  --sh2:      0 8px 32px rgba(26,24,20,0.12);
+  --sh3:      0 24px 64px rgba(26,24,20,0.16);
+}
+[data-theme="dark"]{
+  --bg:       #111009;
+  --bg2:      #1A1812;
+  --bg3:      #231F18;
+  --surface:  #1E1B14;
+  --border:   #2E2A22;
+  --border2:  #3D3830;
+  --text:     #F0EDE4;
+  --text2:    #C0BAB0;
+  --text3:    #7A7568;
+  --ink:      #F0EDE4;
+  --accent:   #E05A4A;
+  --accent2:  #5B9DE8;
+  --accentbg: rgba(224,90,74,0.1);
+  --accentbg2:rgba(91,157,232,0.1);
+  --navbg:    rgba(17,16,9,0.92);
+  --sh1:      0 2px 8px rgba(0,0,0,0.3);
+  --sh2:      0 8px 32px rgba(0,0,0,0.45);
+  --sh3:      0 24px 64px rgba(0,0,0,0.55);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Epilogue',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .35s,color .35s;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* subtle paper texture */
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity:1;
+}
+[data-theme="dark"] body::after{opacity:0.5}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  height:60px;
+  background:var(--navbg);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;
+  transition:background .35s,border-color .35s;
+}
+.nav-logo{
+  font-family:'DM Serif Display',serif;
+  font-size:1.2rem;color:var(--text);text-decoration:none;
+  display:flex;align-items:center;gap:.5rem;
+}
+.nav-logo-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent);
+  animation:pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+
+.nav-links{list-style:none;display:flex;align-items:center;gap:.1rem}
+.nav-links a{
+  font-size:.75rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  text-decoration:none;color:var(--text3);
+  padding:.35rem .8rem;border-radius:4px;
+  transition:color .2s,background .2s;
+}
+.nav-links a:hover{color:var(--text);background:var(--bg3)}
+
+/* theme toggle */
+.tog{
+  display:flex;align-items:center;gap:.55rem;
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:50px;padding:.3rem .9rem;
+  font-family:'Epilogue',sans-serif;font-size:.75rem;font-weight:700;
+  color:var(--text3);cursor:pointer;transition:all .25s;
+}
+.tog:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ══════════════════════════════════════
+   LAYOUT HELPERS
+══════════════════════════════════════ */
+.wrap{max-width:1100px;margin:0 auto;padding:0 2.5rem;position:relative;z-index:1}
+section{position:relative;z-index:1}
+
+/* section label */
+.eyebrow{
+  font-family:'Fira Code',monospace;
+  font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);
+  display:flex;align-items:center;gap:.7rem;
+  margin-bottom:.7rem;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--accent)}
+
+.sec-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.2rem,4vw,3.2rem);
+  line-height:1.1;letter-spacing:-.02em;
+  color:var(--text);margin-bottom:1rem;
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  padding-top:60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--border);
+}
+
+.hero-left{
+  padding:5rem 3rem 5rem 0;
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;justify-content:center;
+  padding-left:max(3rem, calc((100vw - 1100px)/2 + 2.5rem));
+}
+.hero-right{
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:3rem;
+}
+
+.hero-status{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Fira Code',monospace;
+  font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent2);
+  background:var(--accentbg2);border:1px solid rgba(26,82,118,.2);
+  border-radius:4px;padding:.3rem .8rem;
+  margin-bottom:1.8rem;align-self:flex-start;
+}
+[data-theme="dark"] .hero-status{border-color:rgba(91,157,232,.2)}
+.sdot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 2s ease-in-out infinite}
+
+.hero-name{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(4rem,7vw,7rem);
+  line-height:.95;letter-spacing:-.03em;
+  color:var(--text);margin-bottom:.6rem;
+}
+.hero-name em{
+  font-style:italic;color:var(--accent);
+  display:block;
+}
+.hero-subtitle{
+  font-size:1rem;font-weight:500;color:var(--text3);
+  line-height:1.6;max-width:420px;
+  margin-bottom:2.5rem;
+  border-left:3px solid var(--accent);
+  padding-left:1rem;
+}
+.hero-cta{display:flex;gap:.8rem;flex-wrap:wrap}
+
+.btn-fill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--accent);color:#fff;
+  padding:.7rem 1.6rem;border-radius:4px;
+  font-size:.82rem;font-weight:700;letter-spacing:.03em;
+  text-decoration:none;border:none;cursor:pointer;
+  box-shadow:0 4px 16px rgba(192,57,43,.25);
+  transition:transform .2s,opacity .2s,box-shadow .2s;
+}
+.btn-fill:hover{transform:translateY(-2px);opacity:.9;box-shadow:0 8px 24px rgba(192,57,43,.3)}
+
+.btn-line{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:transparent;color:var(--text);
+  padding:.7rem 1.6rem;border-radius:4px;
+  font-size:.82rem;font-weight:700;letter-spacing:.03em;
+  text-decoration:none;cursor:pointer;
+  border:1.5px solid var(--border2);
+  transition:border-color .2s,background .2s,color .2s;
+}
+.btn-line:hover{border-color:var(--accent);color:var(--accent);background:var(--accentbg)}
+
+/* hero right — info card */
+.hero-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:2rem;
+  box-shadow:var(--sh2);
+  position:relative;overflow:hidden;
+}
+.hero-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+.hc-av{
+  width:72px;height:72px;border-radius:12px;
+  background:linear-gradient(135deg,var(--accentbg),var(--accentbg2));
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.2rem;margin-bottom:1rem;
+}
+.hc-name{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:.2rem}
+.hc-role{font-size:.75rem;font-weight:700;color:var(--accent);letter-spacing:.04em;margin-bottom:1.4rem;text-transform:uppercase}
+.hc-div{height:1px;background:var(--border);margin:1rem 0}
+.hc-row{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:.75rem}
+.hc-ico{font-size:.9rem;margin-top:.1rem;flex-shrink:0}
+.hc-lbl{font-size:.65rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em}
+.hc-val{font-size:.84rem;font-weight:600;color:var(--text2)}
+.avail-chip{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);
+  border-radius:50px;padding:.28rem .85rem;
+  font-size:.7rem;font-weight:700;color:#22c55e;margin-top:1rem;
+}
+
+/* hero right bottom — scroll indicator */
+.hero-scroll{
+  display:flex;align-items:center;gap:.8rem;
+  font-family:'Fira Code',monospace;font-size:.65rem;
+  color:var(--text3);letter-spacing:.1em;
+  padding-top:1.5rem;border-top:1px solid var(--border);
+}
+.scroll-line{
+  width:40px;height:1px;background:var(--border2);
+  animation:scrollpulse 2s ease-in-out infinite;
+}
+@keyframes scrollpulse{0%,100%{width:40px}50%{width:70px}}
+
+/* hero counter row */
+.hero-counters{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  margin-top:1.5rem;
+}
+.hcount{
+  background:var(--surface);padding:1.1rem 1rem;text-align:center;
+}
+.hcount-n{
+  font-family:'DM Serif Display',serif;font-size:1.8rem;
+  color:var(--accent);line-height:1;margin-bottom:.2rem;
+}
+.hcount-l{font-size:.65rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.07em}
+
+/* ══════════════════════════════════════
+   ABOUT
+══════════════════════════════════════ */
+#about{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  transition:background .35s;
+}
+.about-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;
+  border-left:1px solid var(--border);
+  border-right:1px solid var(--border);
+  max-width:1100px;margin:0 auto;
+}
+.about-left{
+  padding:5rem 3rem 5rem 2.5rem;
+  border-right:1px solid var(--border);
+}
+.about-right{padding:5rem 2.5rem 5rem 3rem}
+.about-left p{
+  font-size:.95rem;color:var(--text2);line-height:1.88;margin-bottom:1rem;
+}
+.about-highlights{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;
+}
+.ahl{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:1.1rem;
+  transition:transform .2s,box-shadow .2s,border-color .2s;
+}
+.ahl:hover{transform:translateY(-3px);box-shadow:var(--sh2);border-color:var(--border2)}
+.ahl-n{
+  font-family:'DM Serif Display',serif;font-size:2.2rem;
+  color:var(--accent);line-height:1;
+}
+.ahl-l{font-size:.68rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:.25rem}
+
+/* info stack */
+.info-stack{display:flex;flex-direction:column;gap:.75rem}
+.info-row{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:.9rem 1.1rem;
+  display:flex;align-items:center;gap:.8rem;
+  transition:border-color .2s,transform .15s;
+}
+.info-row:hover{border-color:var(--accent);transform:translateX(4px)}
+.ir-ico{font-size:.95rem;flex-shrink:0}
+.ir-lbl{font-size:.62rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em}
+.ir-val{font-size:.85rem;font-weight:600;color:var(--text2)}
+.ir-val a{color:inherit;text-decoration:none}
+.ir-val a:hover{color:var(--accent);text-decoration:underline}
+
+/* ══════════════════════════════════════
+   SKILLS — tabbed
+══════════════════════════════════════ */
+#skills{
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  transition:background .35s;
+}
+.skills-wrap{
+  display:grid;grid-template-columns:240px 1fr;gap:0;
+  border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  box-shadow:var(--sh1);
+  margin-top:3rem;
+}
+.stabs{
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+}
+.stab{
+  padding:1rem 1.3rem;
+  display:flex;align-items:center;gap:.7rem;
+  font-size:.83rem;font-weight:700;
+  color:var(--text3);cursor:pointer;
+  border:none;background:transparent;font-family:'Epilogue',sans-serif;
+  border-bottom:1px solid var(--border);
+  transition:background .2s,color .2s;text-align:left;
+}
+.stab:last-child{border-bottom:none}
+.stab:hover{background:var(--bg3);color:var(--text)}
+.stab.on{
+  background:var(--surface);color:var(--accent);
+  border-left:3px solid var(--accent);
+  padding-left:calc(1.3rem - 2px);
+}
+.spanel{display:none;padding:2.5rem}
+.spanel.on{display:block;animation:fadeup .25s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sp-title{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:.35rem}
+.sp-desc{font-size:.86rem;color:var(--text3);line-height:1.7;margin-bottom:1.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{
+  display:inline-flex;align-items:center;
+  border-radius:5px;padding:.38rem .9rem;
+  font-size:.76rem;font-weight:700;border:1px solid;
+  transition:transform .15s,box-shadow .15s;cursor:default;
+  letter-spacing:.02em;
+}
+.chip:hover{transform:translateY(-2px);box-shadow:var(--sh1)}
+.cr{background:var(--accentbg);color:var(--accent);border-color:rgba(192,57,43,.2)}
+.cb{background:var(--accentbg2);color:var(--accent2);border-color:rgba(26,82,118,.2)}
+[data-theme="dark"] .cr{border-color:rgba(224,90,74,.25)}
+[data-theme="dark"] .cb{border-color:rgba(91,157,232,.25)}
+.cg{background:rgba(34,197,94,.07);color:#16a34a;border-color:rgba(34,197,94,.2)}
+[data-theme="dark"] .cg{color:#4ade80;border-color:rgba(74,222,128,.2)}
+
+/* ══════════════════════════════════════
+   EXPERIENCE — magazine timeline
+══════════════════════════════════════ */
+#experience{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  transition:background .35s;
+  padding:5rem 0;
+}
+.exp-header-row{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:2rem;margin-bottom:3.5rem;flex-wrap:wrap;
+}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.exp-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+  display:flex;flex-direction:column;
+}
+.exp-card:hover{transform:translateY(-5px);box-shadow:var(--sh3);border-color:var(--border2)}
+.exp-top{
+  padding:1.8rem 1.8rem 1.5rem;
+  border-bottom:1px solid var(--border);
+}
+.exp-period{
+  font-family:'Fira Code',monospace;font-size:.68rem;font-weight:500;
+  color:var(--text3);letter-spacing:.08em;
+  display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem;flex-wrap:wrap;
+}
+.ebadge{
+  font-size:.62rem;font-weight:700;border-radius:50px;
+  padding:.1rem .6rem;border:1px solid;
+}
+.eb-live{color:#22c55e;border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.08)}
+.eb-past{color:var(--text3);border-color:var(--border2);background:var(--bg3)}
+.exp-co{
+  font-family:'DM Serif Display',serif;font-size:1.2rem;
+  margin-bottom:.2rem;
+}
+.exp-role{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.03em;margin-bottom:.3rem;text-transform:uppercase}
+.exp-loc{font-size:.74rem;color:var(--text3)}
+.exp-body{padding:1.5rem 1.8rem 1.8rem;flex:1}
+.exp-pts{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.3rem}
+.exp-pts li{
+  font-size:.84rem;color:var(--text2);line-height:1.65;
+  padding-left:1.1rem;position:relative;
+}
+.exp-pts li::before{
+  content:'▸';position:absolute;left:0;
+  color:var(--accent);font-size:.65rem;top:3px;
+}
+.exp-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.etag{
+  font-family:'Fira Code',monospace;font-size:.65rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:4px;padding:.12rem .5rem;color:var(--text3);
+}
+
+/* ══════════════════════════════════════
+   PROJECTS — big cards
+══════════════════════════════════════ */
+#projects{
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  transition:background .35s;
+  padding:5rem 0;
+}
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  margin-top:3rem;
+}
+.pcard{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+  transition:transform .25s,box-shadow .25s;
+  display:flex;flex-direction:column;
+}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--sh3)}
+.pcard-banner{
+  height:110px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.8rem;
+  position:relative;overflow:hidden;
+}
+.pb1{background:linear-gradient(135deg,#fde8e6,#fceeed)}
+.pb2{background:linear-gradient(135deg,#dbeafe,#e0f2fe)}
+.pb3{background:linear-gradient(135deg,#d1fae5,#dcfce7)}
+.pb4{background:linear-gradient(135deg,#fef3c7,#fffbeb)}
+.pb5{background:linear-gradient(135deg,#ede9fe,#fce7f3)}
+.pb6{background:linear-gradient(135deg,#e0f2fe,#dbeafe)}
+[data-theme="dark"] .pb1{background:linear-gradient(135deg,#3b1512,#2d1010)}
+[data-theme="dark"] .pb2{background:linear-gradient(135deg,#0f1e38,#0a1828)}
+[data-theme="dark"] .pb3{background:linear-gradient(135deg,#052012,#071f10)}
+[data-theme="dark"] .pb4{background:linear-gradient(135deg,#231800,#1a1200)}
+[data-theme="dark"] .pb5{background:linear-gradient(135deg,#1a1030,#1f0a1a)}
+[data-theme="dark"] .pb6{background:linear-gradient(135deg,#0a1828,#0f1e38)}
+.pcard-body{padding:1.4rem;flex:1;display:flex;flex-direction:column}
+.pcard-title{font-size:.94rem;font-weight:800;margin-bottom:.4rem;line-height:1.3}
+.pcard-desc{font-size:.8rem;color:var(--text3);line-height:1.7;flex:1;margin-bottom:1rem}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.ptag{
+  font-family:'Fira Code',monospace;font-size:.63rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:3px;padding:.1rem .48rem;color:var(--text3);
+}
+
+/* ══════════════════════════════════════
+   CONTACT — split panel
+══════════════════════════════════════ */
+#contact{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  transition:background .35s;
+}
+.contact-split{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border-left:1px solid var(--border);
+  border-right:1px solid var(--border);
+  max-width:1100px;margin:0 auto;
+}
+.contact-left{
+  padding:5rem 3rem 5rem 2.5rem;
+  border-right:1px solid var(--border);
+}
+.contact-right{padding:5rem 2.5rem 5rem 3rem}
+.contact-left p{font-size:.95rem;color:var(--text2);line-height:1.85;margin-bottom:1.5rem}
+.channels{display:flex;flex-direction:column;gap:.7rem}
+.ch{
+  display:flex;align-items:center;gap:.9rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:.85rem 1.1rem;
+  text-decoration:none;color:var(--text);
+  transition:border-color .2s,transform .18s,box-shadow .2s;
+}
+.ch:hover{border-color:var(--accent);transform:translateX(5px);box-shadow:var(--sh1)}
+.ch-ico{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--accentbg);border:1px solid rgba(192,57,43,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;flex-shrink:0;
+}
+[data-theme="dark"] .ch-ico{border-color:rgba(224,90,74,.2)}
+.ch-lbl{font-size:.62rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em}
+.ch-val{font-size:.84rem;font-weight:600;color:var(--text)}
+
+/* socials row */
+.socials-row{
+  display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem;
+}
+.social-pill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:50px;padding:.4rem 1rem;
+  text-decoration:none;color:var(--text2);
+  font-size:.77rem;font-weight:700;
+  transition:all .2s;
+}
+.social-pill:hover{border-color:var(--accent);color:var(--accent);background:var(--accentbg)}
+
+/* contact form */
+.cform{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:2.2rem;
+  box-shadow:var(--sh1);
+}
+.cform h3{
+  font-family:'DM Serif Display',serif;font-size:1.4rem;
+  margin-bottom:1.5rem;
+}
+.ff{margin-bottom:1rem}
+.ff label{
+  display:block;font-size:.65rem;font-weight:700;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.1em;
+  margin-bottom:.35rem;
+}
+.ff input,.ff textarea{
+  width:100%;background:var(--bg2);border:1px solid var(--border);
+  border-radius:7px;padding:.65rem .9rem;
+  font-family:'Epilogue',sans-serif;font-size:.86rem;color:var(--text);
+  outline:none;transition:border-color .2s;
+}
+.ff input:focus,.ff textarea:focus{border-color:var(--accent)}
+.ff textarea{resize:vertical;min-height:90px}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{
+  position:relative;z-index:1;
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:2rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+  transition:background .35s;
+}
+.ft-left{font-size:.78rem;color:var(--text3)}
+.ft-left strong{color:var(--accent)}
+.ft-socials{display:flex;gap:.6rem;align-items:center}
+.ft-s{
+  width:32px;height:32px;border-radius:7px;
+  background:var(--bg3);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:.85rem;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.ft-s:hover{border-color:var(--accent);background:var(--accentbg);transform:translateY(-2px)}
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}
+.rv.d2{transition-delay:.2s}
+.rv.d3{transition-delay:.3s}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr}
+  .hero-left{border-right:none;border-bottom:1px solid var(--border);padding:4rem 1.5rem 3rem}
+  .hero-right{padding:2rem 1.5rem}
+  .about-inner,.contact-split{grid-template-columns:1fr}
+  .about-left,.about-right,.contact-left,.contact-right{padding:3rem 1.5rem;border-right:none;border-bottom:1px solid var(--border)}
+  .skills-wrap{grid-template-columns:1fr}
+  .stabs{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid var(--border)}
+  .stab{border-bottom:none;white-space:nowrap}
+  .stab.on{border-left:none;border-bottom:3px solid var(--accent);padding-left:1.3rem}
+  .exp-grid,.proj-grid{grid-template-columns:1fr}
+  nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  footer{padding:1.5rem}
+}
+@media(max-width:580px){
+  .about-highlights{grid-template-columns:1fr 1fr}
+  .hero-counters{grid-template-columns:1fr 1fr 1fr}
+  .proj-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    Mirdhula V
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="tog" id="togBtn">
+    <span id="togIcon">🌙</span>
+    <span id="togLbl">Dark</span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-left rv">
+    <div class="hero-status"><span class="sdot"></span>Currently Employed · Open to Opportunities</div>
+    <h1 class="hero-name">
+      Mirdhula V
+    </h1>
+    <p class="hero-subtitle">
+      Full-Stack Developer and Salesforce Administrator focused on building practical business systems, real-world CRM workflows, and scalable web applications.
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn-fill">My Experience →</a>
+      <a href="#contact" class="btn-line">Get In Touch</a>
+    </div>
+    <div class="hero-counters rv d2">
+      <div class="hcount"><div class="hcount-n">2</div><div class="hcount-l">Companies</div></div>
+      <div class="hcount"><div class="hcount-n">9+</div><div class="hcount-l">Months Exp.</div></div>
+      <div class="hcount"><div class="hcount-n">10+</div><div class="hcount-l">Tech Used</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right rv d1">
+    <div class="hero-card">
+      <div class="hc-av">👩‍💻</div>
+      <div class="hc-name">Mirdhula V</div>
+      <div class="hc-role">Developer · Salesforce Administrator</div>
+      <div class="hc-div"></div>
+      <div class="hc-row">
+        <span class="hc-ico">📍</span>
+        <div><div class="hc-lbl">Location</div><div class="hc-val">Coimbatore, Tamil Nadu, India</div></div>
+      </div>
+      <div class="hc-row">
+        <span class="hc-ico">🏢</span>
+        <div><div class="hc-lbl">Current Company</div><div class="hc-val">Dotts Information Technology L.L.C</div></div>
+      </div>
+      <div class="hc-row">
+        <span class="hc-ico">⚙️</span>
+        <div><div class="hc-lbl">Specialisation</div><div class="hc-val">Full-Stack · Salesforce · Zoho CRM</div></div>
+      </div>
+      <div class="hc-row">
+        <span class="hc-ico">✉️</span>
+        <div><div class="hc-lbl">Email</div><div class="hc-val"><a href="mailto:vmirdhula04@gmail.com" style="color:inherit;text-decoration:none;">vmirdhula04@gmail.com</a></div></div>
+      </div>
+      <div class="avail-chip"><span class="sdot"></span>Open to new opportunities</div>
+    </div>
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      <span>SCROLL TO EXPLORE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-left rv">
+      <div class="eyebrow">Who I am</div>
+      <h2 class="sec-title">About<br><em style="font-style:italic;color:var(--accent)">Me</em></h2>
+      <div style="margin-top:1.5rem">
+        <p>I'm Mirdhula V, a developer based in Coimbatore who enjoys building solutions that connect technology with real business needs. My professional journey began at DMeX Solutions, where I quickly moved from learning into contributing to real production applications using modern development frameworks.</p>
+
+        <p>Currently at Dotts Information Technology L.L.C, I work across enterprise platforms including Salesforce, Zoho, and organisational IT systems. My work involves implementing CRM processes, managing DevOps deployments, and building internal automation tools that help teams work more efficiently.</p>
+
+        <p>I also work with real-world CRM workflows in the Salesforce platform for a real estate business process — helping manage leads, customer journeys, and operational workflows through structured CRM systems.</p>
+
+        <p>What excites me most is the intersection of development, automation, and operations. Whether configuring a CRM process, building a feature, or creating automation, my goal is always to make complex business processes simpler and more efficient.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ahl rv d1"><div class="ahl-n">2</div><div class="ahl-l">Companies</div></div>
+        <div class="ahl rv d2"><div class="ahl-n">9+</div><div class="ahl-l">Months Exp.</div></div>
+        <div class="ahl rv d3"><div class="ahl-n">10+</div><div class="ahl-l">Technologies</div></div>
+        <div class="ahl rv d1"><div class="ahl-n">∞</div><div class="ahl-l">Curiosity</div></div>
+      </div>
+    </div>
+    <div class="about-right rv d2">
+      <div class="eyebrow">Quick Info</div>
+      <h3 style="font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:1.5rem">Personal<br>Details</h3>
+      <div class="info-stack">
+        <div class="info-row"><span class="ir-ico">🙋‍♀️</span><div><div class="ir-lbl">Full Name</div><div class="ir-val">Mirdhula V</div></div></div>
+        <div class="info-row"><span class="ir-ico">📍</span><div><div class="ir-lbl">Location</div><div class="ir-val">Coimbatore, Tamil Nadu, India</div></div></div>
+        <div class="info-row"><span class="ir-ico">💼</span><div><div class="ir-lbl">Current Role</div><div class="ir-val">Programmer Analyst · Dotts IT L.L.C</div></div></div>
+        <div class="info-row"><span class="ir-ico">🛠</span><div><div class="ir-lbl">Core Stack</div><div class="ir-val">Python · JS · Angular · Salesforce · Zoho</div></div></div>
+        <div class="info-row"><span class="ir-ico">🌐</span><div><div class="ir-lbl">Languages</div><div class="ir-val">Tamil (Native) · English (Professional)</div></div></div>
+        <div class="info-row"><span class="ir-ico">✉️</span><div><div class="ir-lbl">Email</div><div class="ir-val"><a href="mailto:vmirdhula04@gmail.com">vmirdhula04@gmail.com</a></div></div></div>
+        <div class="info-row"><span class="ir-ico">📞</span><div><div class="ir-lbl">Phone</div><div class="ir-val"><a href="tel:+919894695369">+91 98946 95369</a></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills" style="padding:5rem 0">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">What I work with</div>
+      <h2 class="sec-title">Skills &amp; Technologies</h2>
+    </div>
+    <div class="skills-wrap rv d1">
+      <div class="stabs" id="stabsEl">
+        <button class="stab on" data-p="web">🌐 Web Dev</button>
+        <button class="stab" data-p="sf">☁️ Salesforce</button>
+        <button class="stab" data-p="zoho">🔧 Zoho</button>
+        <button class="stab" data-p="admin">🛡 Admin &amp; IT</button>
+      </div>
+      <div>
+        <div class="spanel on" id="panel-web">
+          <div class="sp-title">Web Development</div>
+          <div class="sp-desc">Built real-time full-stack applications at DMeX Solutions using modern JavaScript frameworks and Python backends — contributing to production from day one.</div>
+          <div class="chips">
+            <span class="chip cr">Python</span>
+            <span class="chip cr">JavaScript</span>
+            <span class="chip cr">TypeScript</span>
+            <span class="chip cr">Angular</span>
+            <span class="chip cr">Node.js</span>
+            <span class="chip cr">NestJS</span>
+            <span class="chip cr">HTML &amp; CSS</span>
+            <span class="chip cr">REST APIs</span>
+          </div>
+        </div>
+        <div class="spanel" id="panel-sf">
+          <div class="sp-title">Salesforce Platform</div>
+          <div class="sp-desc">Working with Salesforce CRM to support real-world business workflows including real estate lead management, customer lifecycle tracking, and deployment management using Salesforce DevOps Center.</div>
+          <div class="chips">
+            <span class="chip cb">Salesforce CRM</span>
+            <span class="chip cb">Salesforce DevOps Center</span>
+            <span class="chip cb">CRM Administration</span>
+            <span class="chip cb">CI/CD Pipelines</span>
+            <span class="chip cb">Deployment Management</span>
+          </div>
+        </div>
+        <div class="spanel" id="panel-zoho">
+          <div class="sp-title">Zoho Ecosystem</div>
+          <div class="sp-desc">Hands-on configuration and customisation of Zoho's suite — automating business workflows, streamlining project management, and building internal apps.</div>
+          <div class="chips">
+            <span class="chip cg">Zoho CRM</span>
+            <span class="chip cg">Zoho MDM</span>
+            <span class="chip cg">Zoho Sprints</span>
+            <span class="chip cg">Zoho Desk</span>
+            <span class="chip cg">Zoho Creator</span>
+            <span class="chip cg">Workflow Automation</span>
+            <span class="chip cg">Resource Allocation</span>
+          </div>
+        </div>
+        <div class="spanel" id="panel-admin">
+          <div class="sp-title">Administration &amp; IT Ops</div>
+          <div class="sp-desc">Managing enterprise user infrastructure, device management, and IT operations to ensure smooth organisational workflows and security compliance.</div>
+          <div class="chips">
+            <span class="chip cr">Google Admin Console</span>
+            <span class="chip cr">Mobile Device Management</span>
+            <span class="chip cr">User Provisioning</span>
+            <span class="chip cr">IT Support</span>
+            <span class="chip cr">Git &amp; Version Control</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ─── -->
+<section id="experience">
+  <div class="wrap">
+    <div class="exp-header-row rv">
+      <div>
+        <div class="eyebrow">Career Journey</div>
+        <h2 class="sec-title">Work Experience</h2>
+      </div>
+      <p style="font-size:.88rem;color:var(--text3);max-width:320px;line-height:1.7">Two companies. Nine months. Real production work from day one — growing fast across full-stack development and enterprise CRM.</p>
+    </div>
+    <div class="exp-grid">
+
+      <div class="exp-card rv">
+        <div class="exp-top">
+          <div class="exp-period">June 2025 – Present <span class="ebadge eb-live">● Current</span></div>
+          <div class="exp-co">Dotts Information Technology L.L.C</div>
+          <div class="exp-role">Programmer Analyst & Salesforce CRM Administrator</div>
+          <div class="exp-loc">📍 Coimbatore, Tamil Nadu</div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-pts">
+            <li>Working on real-world CRM workflows in <strong>Salesforce</strong> supporting real estate business processes including lead tracking, sales stages, and customer lifecycle management.</li>
+
+            <li>Configuring and managing <strong>Salesforce DevOps Center</strong> to maintain structured deployment pipelines and controlled CRM updates.</li>
+
+            <li>Managing enterprise systems including <strong>Zoho MDM</strong> for mobile device management and <strong>Google Admin Console</strong> for organisational user administration.</li>
+
+            <li>Customising <strong>Zoho Desk</strong> support workflows and configuring sprint tracking using <strong>Zoho Sprints</strong> for internal project management.</li>
+
+            <li>Developing internal operational tools using <strong>Zoho Creator</strong> to automate resource allocation and improve organisational workflow efficiency.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="etag">Salesforce</span>
+            <span class="etag">DevOps Center</span>
+            <span class="etag">Zoho CRM</span>
+            <span class="etag">Zoho MDM</span>
+            <span class="etag">Zoho Creator</span>
+            <span class="etag">Google Admin</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card rv d1">
+        <div class="exp-top">
+          <div class="exp-period">Jan 2025 – Mar 2025 <span class="ebadge eb-past">Trainee · 3 months</span></div>
+          <div class="exp-co">DMeX Solutions Pvt. Ltd.</div>
+          <div class="exp-role">Trainee Full-Stack Developer</div>
+          <div class="exp-loc">📍 Coimbatore, Tamil Nadu</div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-pts">
+            <li>Contributed to real-time full-stack projects — <strong>Angular</strong> frontends backed by <strong>Python</strong> and <strong>NestJS</strong> services.</li>
+            <li>Built RESTful APIs using <strong>Node.js</strong> and <strong>NestJS</strong> to power dynamic, data-driven application features.</li>
+            <li>Worked end-to-end with <strong>TypeScript</strong> across the full stack for type-safe, maintainable codebases.</li>
+            <li>Participated in Agile sprints, code reviews, and collaborative development from day one.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="etag">Python</span>
+            <span class="etag">Angular</span>
+            <span class="etag">TypeScript</span>
+            <span class="etag">Node.js</span>
+            <span class="etag">NestJS</span>
+            <span class="etag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="wrap">
+    <div class="rv" style="display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:0;flex-wrap:wrap">
+      <div>
+        <div class="eyebrow">What I've built</div>
+        <h2 class="sec-title">Featured Projects</h2>
+      </div>
+      <p style="font-size:.85rem;color:var(--text3);max-width:280px;line-height:1.7;margin-bottom:1rem">Real work from my professional experience — across full-stack, CRM, and DevOps.</p>
+    </div>
+    <div class="proj-grid">
+
+      <div class="pcard rv">
+        <div class="pcard-banner pb2">☁️</div>
+        <div class="pcard-body">
+          <div class="pcard-title">Salesforce DevOps Pipeline</div>
+          <div class="pcard-desc">Configured Salesforce DevOps Center to support controlled CRM deployments and version tracking across environments, improving reliability and visibility of system updates.</div>
+          <div class="pcard-tags">
+            <span class="ptag">Salesforce</span><span class="ptag">DevOps Center</span><span class="ptag">CI/CD</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard rv d1">
+        <div class="pcard-banner pb3">📋</div>
+        <div class="pcard-body">
+          <div class="pcard-title">Resource Allocation App</div>
+          <div class="pcard-desc">Built a Zoho Creator application to digitise and automate team resource allocation, replacing manual spreadsheet-based processes entirely.</div>
+          <div class="pcard-tags">
+            <span class="ptag">Zoho Creator</span><span class="ptag">Zoho CRM</span><span class="ptag">Deluge Script</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard rv d2">
+        <div class="pcard-banner pb5">📱</div>
+        <div class="pcard-body">
+          <div class="pcard-title">Enterprise MDM Setup</div>
+          <div class="pcard-desc">Deployed Zoho MDM for mobile device enrollment, profile policies, and compliance monitoring across the organisation's device fleet.</div>
+          <div class="pcard-tags">
+            <span class="ptag">Zoho MDM</span><span class="ptag">Google Admin</span><span class="ptag">Policy Mgmt</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard rv">
+        <div class="pcard-banner pb1">🌐</div>
+        <div class="pcard-body">
+          <div class="pcard-title">Full-Stack Web Application</div>
+          <div class="pcard-desc">Contributed to real-time production web apps at DMeX — Angular frontends, NestJS REST APIs, and Python backend services in an Agile team.</div>
+          <div class="pcard-tags">
+            <span class="ptag">Angular</span><span class="ptag">NestJS</span><span class="ptag">Python</span><span class="ptag">TypeScript</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard rv d1">
+        <div class="pcard-banner pb4">🎟️</div>
+        <div class="pcard-body">
+          <div class="pcard-title">Zoho Desk Customisation</div>
+          <div class="pcard-desc">Customised Zoho Desk with ticket templates, SLA policies, automation rules, and custom views to streamline the support team's workflow.</div>
+          <div class="pcard-tags">
+            <span class="ptag">Zoho Desk</span><span class="ptag">SLA Config</span><span class="ptag">Automation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard rv d2">
+        <div class="pcard-banner pb6">🗂️</div>
+        <div class="pcard-body">
+          <div class="pcard-title">Zoho Sprints Workflow</div>
+          <div class="pcard-desc">Implemented Zoho Sprints Kanban board workflows to organise and track work items across stages, using layout rules to enforce structured task management.</div>
+          <div class="pcard-tags">
+            <span class="ptag">Zoho Sprints</span><span class="ptag">Kanban / Scrum</span><span class="ptag">Team Mgmt</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="contact-split">
+    <div class="contact-left rv">
+      <div class="eyebrow">Let's connect</div>
+      <h2 class="sec-title">Get In<br><em style="font-style:italic;color:var(--accent)">Touch</em></h2>
+      <p style="margin-top:1.5rem">I'm open to new opportunities, freelance projects, and interesting collaborations — whether it's full-stack development or enterprise CRM work. I typically respond within 24 hours.</p>
+      <div class="channels">
+        <a href="mailto:vmirdhula04@gmail.com" class="ch">
+          <div class="ch-ico">✉️</div>
+          <div><div class="ch-lbl">Email</div><div class="ch-val">vmirdhula04@gmail.com</div></div>
+        </a>
+        <a href="tel:+919894695369" class="ch">
+          <div class="ch-ico">📞</div>
+          <div><div class="ch-lbl">Phone</div><div class="ch-val">+91 98946 95369</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/mirdhula/" target="_blank" class="ch">
+          <div class="ch-ico">💼</div>
+          <div><div class="ch-lbl">LinkedIn</div><div class="ch-val">linkedin.com/in/mirdhula</div></div>
+        </a>
+      </div>
+      <div class="socials-row">
+        <a href="https://www.instagram.com/mirdhula_velusamy/" target="_blank" class="social-pill">📸 Instagram</a>
+        <a href="https://x.com/mirdhula2005" target="_blank" class="social-pill">🐦 Twitter / X</a>
+        <a href="https://www.facebook.com/mirdhula.v.3" target="_blank" class="social-pill">📘 Facebook</a>
+      </div>
+    </div>
+    <div class="contact-right rv d2">
+      <div class="cform">
+        <h3>Send a Message</h3>
+        <div class="ff"><label>Your Name</label><input type="text" placeholder="Jane Smith"></div>
+        <div class="ff"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
+        <div class="ff"><label>Subject</label><input type="text" placeholder="Project / Opportunity / Hello"></div>
+        <div class="ff"><label>Message</label><textarea placeholder="Tell me about your project or opportunity…"></textarea></div>
+        <button class="btn-fill" style="width:100%;justify-content:center;border:none;margin-top:.5rem">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="ft-left">Portfolio of <strong>Mirdhula V</strong> · Coimbatore, India · 2025</div>
+  <div class="ft-socials">
+    <a href="mailto:vmirdhula04@gmail.com" class="ft-s" title="Email">✉️</a>
+    <a href="https://www.linkedin.com/in/mirdhula/" target="_blank" class="ft-s" title="LinkedIn">💼</a>
+    <a href="https://www.instagram.com/mirdhula_velusamy/" target="_blank" class="ft-s" title="Instagram">📸</a>
+    <a href="https://x.com/mirdhula2005" target="_blank" class="ft-s" title="Twitter/X">🐦</a>
+    <a href="https://www.facebook.com/mirdhula.v.3" target="_blank" class="ft-s" title="Facebook">📘</a>
+  </div>
+</footer>
+
+<script>
+/* ── THEME ── */
+const html=document.documentElement;
+const tb=document.getElementById('togBtn');
+const ti=document.getElementById('togIcon');
+const tl=document.getElementById('togLbl');
+const sv=localStorage.getItem('mv-theme')||'light';
+applyTheme(sv);
+tb.addEventListener('click',()=>{
+  const n=html.getAttribute('data-theme')==='light'?'dark':'light';
+  applyTheme(n);localStorage.setItem('mv-theme',n);
+});
+function applyTheme(t){
+  html.setAttribute('data-theme',t);
+  ti.textContent=t==='light'?'🌙':'☀️';
+  tl.textContent=t==='light'?'Dark':'Light';
+}
+
+/* ── SKILL TABS ── */
+document.getElementById('stabsEl').addEventListener('click',e=>{
+  const tab=e.target.closest('.stab');
+  if(!tab)return;
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.spanel').forEach(p=>p.classList.remove('on'));
+  tab.classList.add('on');
+  document.getElementById('panel-'+tab.dataset.p).classList.add('on');
+});
+
+/* ── SCROLL REVEAL ── */
+const rvEls=document.querySelectorAll('.rv');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.08});
+rvEls.forEach(el=>obs.observe(el));
+setTimeout(()=>{
+  rvEls.forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight)el.classList.add('in');});
+},60);
+
+/* ── NAV ACTIVE ── */
+const secs=document.querySelectorAll('section[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id;});
+  navAs.forEach(a=>{
+    if(a.getAttribute('href')==='#'+cur){a.style.color='var(--accent)';a.style.background='var(--accentbg)';}
+    else{a.style.color='';a.style.background='';}
+  });
+});
+</script>
+</body>
+</html>
