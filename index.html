@@ -1112,6 +1112,10 @@ if(form){
       form.reset();
       successMsg.style.display = "block";
 
+      setTimeout(() => {
+        successMsg.style.display = "none";
+      }, 15000);
+
       sendBtn.innerText = "Send Message →";
       sendBtn.disabled = false;
 
