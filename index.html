@@ -626,6 +626,27 @@ footer{
   .hero-counters{grid-template-columns:1fr 1fr 1fr}
   .proj-grid{grid-template-columns:1fr}
 }
+#toast{
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  background:#22c55e;
+  color:white;
+  padding:14px 18px;
+  border-radius:8px;
+  font-size:.85rem;
+  font-weight:600;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  opacity:0;
+  transform:translateY(20px);
+  transition:all .4s ease;
+  z-index:9999;
+}
+
+#toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
 </style>
 </head>
 <body>
@@ -1018,10 +1039,6 @@ footer{
       Send Message →
     </button>
 
-    <div id="formSuccess" style="display:none;margin-top:1rem;font-size:.85rem;color:#22c55e;font-weight:600;">
-      ✅ Message sent successfully! I'll reply soon.
-    </div>
-
   </form>
     </div>
   </div>
@@ -1041,6 +1058,7 @@ footer{
 
 <script>
 /* ── THEME ── */
+const toast = document.getElementById("toast");
 const html=document.documentElement;
 const tb=document.getElementById('togBtn');
 const ti=document.getElementById('togIcon');
@@ -1110,11 +1128,12 @@ if(form){
     });
 
       form.reset();
-      successMsg.style.display = "block";
 
-      setTimeout(() => {
-        successMsg.style.display = "none";
-      }, 5000);
+      toast.classList.add("show");
+
+      setTimeout(()=>{
+        toast.classList.remove("show");
+      },5000);
 
       sendBtn.innerText = "Send Message →";
       sendBtn.disabled = false;
@@ -1127,5 +1146,6 @@ if(form){
   });
 }
 </script>
+<div id="toast">✅ Message sent successfully! I'll reply soon.</div>
 </body>
 </html>
